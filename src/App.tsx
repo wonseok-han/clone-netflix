@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
@@ -82,6 +82,8 @@ a {
 const client = new QueryClient();
 
 function App() {
+  const location = useLocation();
+
   return (
     <RecoilRoot>
       <QueryClientProvider client={client}>
@@ -89,7 +91,7 @@ function App() {
           <GlobalStyle />
           <BrowserRouter>
             <Header />
-            <Routes>
+            <Routes location={location}>
               <Route path="/tv" element={<Tvs />}>
                 <Route path="/tv/:tvId" element={<Tvs />} />
               </Route>
