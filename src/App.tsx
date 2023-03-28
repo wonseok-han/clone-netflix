@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
@@ -82,23 +82,21 @@ a {
 const client = new QueryClient();
 
 function App() {
-  const location = useLocation();
-
   return (
     <RecoilRoot>
       <QueryClientProvider client={client}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <BrowserRouter>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Header />
-            <Routes location={location}>
+            <Routes>
+              <Route path="/" element={<Home />}>
+                <Route path="/movies/:movieId" element={<Home />} />
+              </Route>
               <Route path="/tv" element={<Tvs />}>
                 <Route path="/tv/:tvId" element={<Tvs />} />
               </Route>
               <Route path="/search" element={<Search />} />
-              <Route path="/" element={<Home />}>
-                <Route path="/movies/:movieId" element={<Home />} />
-              </Route>
             </Routes>
           </BrowserRouter>
         </ThemeProvider>
