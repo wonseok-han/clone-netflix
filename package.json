@@ -36,6 +36,12 @@
     "deploy": "gh-pages -d build",
     "predeploy": "yarn build"
   },
+  "lint-staged": {
+    "./src/**/*.{js,jsx,ts,tsx}": [
+      "eslint ./src --fix",
+      "prettier -w ./src/**/*.(js|jsx|ts|tsx)"
+    ]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
